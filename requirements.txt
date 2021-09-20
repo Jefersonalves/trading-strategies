@@ -1,0 +1,10 @@
+numpy==1.20
+pandas==1.2.3
+investpy==1.0.6
+findatapy==0.1.23
+finmarketpy
+bokeh==2.3.3
+clairvoyant==1.0
+yfinance==0.1.63
+TA-Lib
+backtrader==1.9.76.123
