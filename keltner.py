@@ -79,7 +79,6 @@ if __name__ == '__main__':
 
     # Add Strategy
     cerebro.addstrategy(Strategy)
-    results = cerebro.run(stdstats=False)
     cerebro.addanalyzer(bt.analyzers.PyFolio)
     cerebro.addanalyzer(bt.analyzers.TradeAnalyzer, _name='TradeAnalyzer')
     cerebro.addanalyzer(bt.analyzers.Returns, _name='Returns')
