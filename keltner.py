@@ -67,7 +67,27 @@ if __name__ == '__main__':
     # Add Strategy
     cerebro.addstrategy(Strategy)
     results = cerebro.run(stdstats=False)
+    cerebro.addanalyzer(bt.analyzers.PyFolio)
+    cerebro.addanalyzer(bt.analyzers.TradeAnalyzer, _name='TradeAnalyzer')
+    cerebro.addanalyzer(bt.analyzers.Returns, _name='Returns')
+    cerebro.addanalyzer(bt.analyzers.TimeReturn, _name='TimeReturn')
+    cerebro.addanalyzer(bt.analyzers.Transactions, _name='Transactions')
+    cerebro.addanalyzer(bt.analyzers.PositionsValue, _name='PositionsValue')
+    cerebro.addanalyzer(bt.analyzers.DrawDown, _name='DrawDown')
+    cerebro.addanalyzer(bt.analyzers.AnnualReturn, _name='AnnualReturn')
+
+    results = cerebro.run()
 
     print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
 
+    strategy = results[0]
+
+    pyfolio = strategy.analyzers.getbyname('pyfolio')
+    returns, positions, transactions, gross_lev = pyfolio.get_pf_items()
+
+    annual_return = strategy.analyzers.getbyname('AnnualReturn')
+    a = annual_return.get_analysis()
+
     cerebro.plot()
+
+
