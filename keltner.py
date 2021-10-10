@@ -41,8 +41,9 @@ class Strategy(bt.Strategy):
         )
         self.log(logstring)
 
-        if self.keltner.l.lower[0] > self.data[0]:
-            self.buy()
+        if not self.position:
+            if self.keltner.l.lower[0] > self.data[0]:
+                self.buy()
         elif self.keltner.l.upper[0] < self.data[0]:
             self.sell()
 
