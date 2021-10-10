@@ -26,8 +26,21 @@ class KeltnerChannel(bt.Indicator):
 class Strategy(bt.Strategy):
     def __init__(self):
         self.keltner = KeltnerChannel()
+        self.dataclose = self.datas[0].close
+
+    def log(self, txt, dt=None):
+        ''' Logging function fot this strategy'''
+        dt = dt or self.datas[0].datetime.date(0)
+        print('%s, %s' % (dt.isoformat(), txt))
 
     def next(self):
+        logstring = "close: {}, keltner lower: {}, keltner upper: {}".format(
+            self.dataclose[0],
+            self.keltner.l.lower[0],
+            self.keltner.l.upper[0]
+        )
+        self.log(logstring)
+
         if self.keltner.l.lower[0] > self.data[0]:
             self.buy()
         elif self.keltner.l.upper[0] < self.data[0]:
