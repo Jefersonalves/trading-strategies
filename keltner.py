@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 import backtrader as bt
 import yfinance as yf
 
@@ -42,7 +42,24 @@ if __name__ == '__main__':
     # benchmark = get_security_data(BENCHMARK_TICKER, START, END)
     # benchdata = bt.feeds.PandasData(dataname=benchmark, name='SPY', plot=True)
     # cerebro.adddata(benchdata)
-    data = bt.feeds.YahooFinanceCSVData(dataname='asset.csv')
+    data = bt.feeds.GenericCSVData(
+        dataname='../data/cple6_v2.csv',
+
+        fromdate=datetime.datetime(2020, 9, 21),
+        todate=datetime.datetime(2021, 9, 17),
+
+        nullvalue=0.0,
+
+        dtformat=('%Y-%m-%d'),
+
+        datetime=0,
+        open=1,
+        high=2,
+        low=3,
+        close=4,
+        volume=5,
+        openinterest=-1
+    )
     cerebro.adddata(data)
 
     print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
